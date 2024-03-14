@@ -257,6 +257,11 @@ fi
 # install pihole if it has not been installed
 if ! type "pihole" > /dev/null; then
 	curl -sSL https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/scripts/install.sh | bash
+ sudo mkdir -p /etc/systemd/resolved.conf.d
+echo -e "[Resolve]\nDNS=127.0.0.1\nDNSStubListener=no" > /etc/systemd/resolved.conf.d/adguardhome.conf
+sudo mv /etc/resolv.conf /etc/resolv.conf.backup
+sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+sudo systemctl reload-or-restart systemd-resolved
 fi
 
 addClient
