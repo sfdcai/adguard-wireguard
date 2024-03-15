@@ -43,7 +43,14 @@ bash ./setup.sh
 
 4.  Create another VPN Client Profile by running `./setup.sh` again, you can create 253 profiles without modifying the script.
 
-5.  [Enable Wireguard VPN Connections on your devices](./CONNECTING-TO-WG-VPN.md)
+5.  To add additional Wireguard VPN Clients, run setup.sh again. You must run this script as the root user, from within the /root home directory. This can be accomplished by making sure you have performed Step 1 before performing this step.
+
+bash ./setup.sh
+It will automatically increment the IP Addresses for each new client profile, continue accepting all the default values the script provides. The option to edit values is provided for advanced users with edge case requirements.
+
+Configure the Wireguard VPN Client on your device. Once your device is connected via Wireguard, all your DNS requests will flow through Pi-Hole. Your device will be identified by its IPv6 address in Pi-Hole's admin interface, which will be accessible at both http://[fd42:42:42::1]/admin and http://10.66.66.1/admin. If you want to be able to access the admin consle from pi.hole/admin, as described in the Pi-Hole docs, add a local DNS record in pointing pi.hole to 10.66.66.1. The default configuration (which is the recommended configuration) for all VPN profiles is Split Tunnel. If you wish to route all your traffic through the VPN (Full Tunnel), edit the Allowed IPs on your Client Profile on your device to read 0.0.0.0/0, ::/0
+
+6.  [Enable Wireguard VPN Connections on your devices](./CONNECTING-TO-WG-VPN.md)
 
 ---
 
